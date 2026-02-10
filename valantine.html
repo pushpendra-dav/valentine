@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Meri Valentine ❤️</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 520px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff4b5c;
+    }
+
+    #text {
+      font-size: 18px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      min-height: 170px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .yes {
+      background-color: #ff4b5c;
+      color: white;
+    }
+
+    .no {
+      background-color: #ccc;
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      animation: float 6s infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-600px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>मेरी जान ❤️</h1>
+  <div id="text"></div>
+  <div class="buttons" id="buttons"></div>
+</div>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const textDiv = document.getElementById("text");
+  const buttons = document.getElementById("buttons");
+  const music = document.getElementById("music");
+
+  let growSize = 18;
+  let noCount = 0;
+
+  const confirmMessages = [
+    "अरे पक्का? मैं तो थोड़ा सा उम्मीद कर रहा था 🥺 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "सोच लो… मैं अच्छा Valentine बन सकता हूँ 😌 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "इतनी जल्दी मना मत करो ना 🙈 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "दिल थोड़ा सा टूट रहा है 💔 पर फिर भी पूछ रहा हूँ \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "एक बार और सोच लो… प्लीज़ 🥹 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "अब तो जिद पर आ गया हूँ 😅 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "इतना भी बुरा नहीं हूँ मैं 😐 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "हद है… फिर भी पूछ रहा हूँ 😭 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "ये आख़िरी बार सोच लो पक्का 🥺 \n क्या तुम मेरी Valentine बनोगी? 💘",
+    "ठीक है… सच में आख़िरी मौका 😔 \n क्या तुम मेरी Valentine बनोगी? 💘"
+  ];
+
+  showMainQuestion();
+
+  function showMainQuestion() {
+    textDiv.innerHTML = `जब से तुम मेरी ज़िंदगी में आई हो,
+सब कुछ और भी खूबसूरत हो गया है।
+
+क्या तुम मेरी Valentine बनोगी? 💘`;
+
+    buttons.innerHTML = `
+      <button class="yes" onclick="showLoveEnding()">हाँ 💖</button>
+      <button class="no" onclick="showConfirmation()">नहीं 💔</button>
+    `;
+  }
+
+  function showConfirmation() {
+    if (noCount >= 10) {
+      giveUp();
+      return;
+    }
+
+    textDiv.innerHTML = confirmMessages[noCount];
+    noCount++;
+
+    buttons.innerHTML = `
+      <button class="no" id="sureBtn">नहीं 😐</button>
+      <button class="yes" id="changeBtn">हाँ 💖</button>
+    `;
+
+    const changeBtn = document.getElementById("changeBtn");
+
+    growSize += 6;
+    changeBtn.style.fontSize = growSize + "px";
+    changeBtn.style.padding = growSize / 2 + "px " + growSize + "px";
+
+    document.getElementById("sureBtn").onclick = () => {
+      showConfirmation();
+    };
+
+    changeBtn.onclick = () => {
+      showLoveEnding();
+    };
+  }
+
+  function giveUp() {
+    textDiv.innerHTML =
+      "ठीक है… अब मैं और ज़ोर नहीं दूँगा 💙\nअगर किस्मत में होगा, तो हम दोबारा जरूर मिलेंगे🙂";
+
+    buttons.style.display = "none";
+  }
+
+  function showLoveEnding() {
+    textDiv.innerHTML =
+      "यायyyy!! 💕🥰\nतुमने मुझे दुनिया का सबसे खुश इंसान बना दिया!";
+    buttons.style.display = "none";
+    music.play();
+    startHearts();
+  }
+
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100vh";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }, 200);
+  }
+</script>
+
+</body>
+</html>
