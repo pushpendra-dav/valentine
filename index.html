@@ -1,180 +1,483 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <title>Meri Valentine ❤️</title>
-  <style>
-    body {
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      font-family: 'Courier New', monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Kashis ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 520px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-    }
 
-    h1 {
-      color: #ff4b5c;
-    }
+<style>
 
-    #text {
-      font-size: 18px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      min-height: 170px;
-    }
+body{
+margin:0;
+overflow:hidden;
+font-family:'Great Vibes', sans-serif;
+background:linear-gradient(-45deg,#ff4b5c,#ff0080,#6a00ff,#00c3ff);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+color:white;
+text-align:center;
+}
 
-    .buttons {
-      margin-top: 20px;
-    }
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
 
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 10px;
-      transition: all 0.3s ease;
-    }
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
 
-    .yes {
-      background-color: #ff4b5c;
-      color: white;
-    }
+.hidden{display:none;}
 
-    .no {
-      background-color: #ccc;
-    }
+.type{
+font-size:32px;
+max-width:80%;
+min-height:120px;
+}
 
-    .heart {
-      position: absolute;
-      color: red;
-      animation: float 6s infinite;
-    }
+button{
+padding:12px 30px;
+font-size:20px;
+border:none;
+border-radius:10px;
+margin:10px;
+cursor:pointer;
+transition:0.3s;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-600px); opacity: 0; }
-    }
-  </style>
+.yes{
+background:#ff4b5c;
+color:white;
+box-shadow:0 0 15px #ff4b5c;
+}
+
+h1, #qText, #introText{
+text-shadow:0 0 10px black;
+}
+
+.no{
+background:#444;
+color:white;
+}
+
+.big{
+position:absolute;
+top:35%;
+width:100%;
+font-size:80px;
+font-weight:900;
+letter-spacing:3px;
+color:#ffffff;
+text-shadow:0 0 10px rgba(0,0,0,0.8),
+            0 0 20px rgba(0,0,0,0.6),
+            0 0 40px rgba(255,0,100,0.8);
+animation:zoom 1.5s forwards, pulse 1.5s infinite alternate;
+}
+
+
+
+@keyframes zoom{
+0%{transform:scale(0);opacity:0;}
+100%{transform:scale(1);opacity:1;}
+}
+
+@keyframes pulse{
+from{transform:scale(1);}
+to{transform:scale(1.1);}
+}
+
+.fire{
+position:fixed;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(1);opacity:1;}
+100%{transform:scale(25);opacity:0;}
+}
+
+.conf{
+position:fixed;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);opacity:0;}
+}
+
+.heart{
+position:fixed;
+font-size:20px;
+animation:up 5s linear forwards;
+}
+
+@keyframes up{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);opacity:0;}
+}
+
+.star{
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.2;}
+to{opacity:1;}
+}
+
+.meteor{
+position:fixed;
+width:2px;
+height:80px;
+background:linear-gradient(white,transparent);
+transform:rotate(45deg);
+animation:meteor 1s forwards;
+}
+
+@keyframes meteor{
+to{
+transform:translate(300px,600px) rotate(45deg);
+opacity:0;
+}
+}
+
+.shake{
+animation:shake 0.5s;
+}
+
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-10px);}
+50%{transform:translateX(10px);}
+75%{transform:translateX(-10px);}
+100%{transform:translateX(0);}
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="card">
-  <h1>मेरी जान ❤️</h1>
-  <div id="text"></div>
-  <div class="buttons" id="buttons"></div>
-</div>
-
 <audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
+<source src="love.mp3" type="audio/mpeg">
 </audio>
 
+<div class="screen" id="intro">
+<div class="type" id="introText"></div>
+</div>
+
+<div class="screen hidden" id="main">
+<h1 style="font-size:55px; margin-bottom:20px;">Kashis ❤️</h1>
+
+<div id="qText"
+     style="font-size:34px;
+            max-width:700px;
+            line-height:1.6;
+            margin:20px;">
+</div>
+
+<div id="btns" style="margin-top:20px;"></div>
+</div>
+
+
 <script>
-  const textDiv = document.getElementById("text");
-  const buttons = document.getElementById("buttons");
-  const music = document.getElementById("music");
 
-  let growSize = 18;
-  let noCount = 0;
+//////////////// INTRO TYPING //////////////////
 
-  const confirmMessages = [
-    "अरे पक्का? मैं तो थोड़ा सा उम्मीद कर रहा था 🥺 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "सोच लो… मैं अच्छा Valentine बन सकता हूँ 😌 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "इतनी जल्दी मना मत करो ना 🙈 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "दिल थोड़ा सा टूट रहा है 💔 पर फिर भी पूछ रहा हूँ \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "एक बार और सोच लो… प्लीज़ 🥹 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "अब तो जिद पर आ गया हूँ 😅 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "इतना भी बुरा नहीं हूँ मैं 😐 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "हद है… फिर भी पूछ रहा हूँ 😭 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "ये आख़िरी बार सोच लो पक्का 🥺 \n क्या तुम मेरी Valentine बनोगी? 💘",
-    "ठीक है… सच में आख़िरी मौका 😔 \n क्या तुम मेरी Valentine बनोगी? 💘"
-  ];
+const introLines=[
+"Kashis...",
+"Mujhe tumse kuch kehna hai...",
+"Please thoda rukna..."
+];
 
-  showMainQuestion();
+let i=0;
+let j=0;
 
-  function showMainQuestion() {
-    textDiv.innerHTML = `जब से तुम मेरी ज़िंदगी में आई हो,
-सब कुछ और भी खूबसूरत हो गया है।
+function typeIntro(){
 
-क्या तुम मेरी Valentine बनोगी? 💘`;
+if(i<introLines.length){
 
-    buttons.innerHTML = `
-      <button class="yes" onclick="showLoveEnding()">हाँ 💖</button>
-      <button class="no" onclick="showConfirmation()">नहीं 💔</button>
-    `;
-  }
+if(j<introLines[i].length){
 
-  function showConfirmation() {
-    if (noCount >= 10) {
-      giveUp();
-      return;
-    }
+document.getElementById("introText").innerHTML+=introLines[i][j];
+j++;
 
-    textDiv.innerHTML = confirmMessages[noCount];
-    noCount++;
+setTimeout(typeIntro,50);
 
-    buttons.innerHTML = `
-      <button class="no" id="sureBtn">नहीं 😐</button>
-      <button class="yes" id="changeBtn">हाँ 💖</button>
-    `;
+}else{
 
-    const changeBtn = document.getElementById("changeBtn");
+document.getElementById("introText").innerHTML+="<br>";
+i++;
+j=0;
 
-    growSize += 6;
-    changeBtn.style.fontSize = growSize + "px";
-    changeBtn.style.padding = growSize / 2 + "px " + growSize + "px";
+setTimeout(typeIntro,700);
 
-    document.getElementById("sureBtn").onclick = () => {
-      showConfirmation();
-    };
+}
 
-    changeBtn.onclick = () => {
-      showLoveEnding();
-    };
-  }
+}else{
 
-  function giveUp() {
-    textDiv.innerHTML =
-      "ठीक है… अब मैं और ज़ोर नहीं दूँगा 💙\nअगर किस्मत में होगा, तो हम दोबारा जरूर मिलेंगे🙂";
+setTimeout(()=>{
+document.getElementById("intro").classList.add("hidden");
+document.getElementById("main").classList.remove("hidden");
+showQuestion();
+},1500);
 
-    buttons.style.display = "none";
-  }
+}
 
-  function showLoveEnding() {
-    textDiv.innerHTML =
-      "यायyyy!! 💕🥰\nतुमने मुझे दुनिया का सबसे खुश इंसान बना दिया!";
-    buttons.style.display = "none";
-    music.play();
-    startHearts();
-  }
+}
 
-  function startHearts() {
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.top = "100vh";
-      heart.style.fontSize = Math.random() * 20 + 15 + "px";
-      document.body.appendChild(heart);
+typeIntro();
 
-      setTimeout(() => heart.remove(), 6000);
-    }, 200);
-  }
+//////////////// QUESTION //////////////////
+
+let grow=20;
+let noCount=0;
+
+function showQuestion(){
+
+document.getElementById("qText").innerHTML=
+"जब से तुम मेरी जिंदगी में आई हो,<br><br>" +
+"मेरी दुनिया और भी खूबसूरत हो गई है 💖<br><br>" +
+"<b style='font-size:38px;'>क्या तुम मेरी Valentine बनोगी? 💍</b>";
+
+document.getElementById("btns").innerHTML=
+`<button class="yes" onclick="yesClick()">हाँ 💖</button>
+<button class="no" onclick="noClick()">नहीं 😏</button>`;
+
+}
+
+function noClick(){
+
+noCount++;
+grow+=10;
+
+if(noCount>10){
+
+document.getElementById("qText").innerHTML=
+"ठीक है... लेकिन मैं हमेशा तुमसे प्यार करता रहूँगा ❤️";
+
+return;
+
+}
+
+document.getElementById("qText").innerHTML=
+"पक्का? एक बार और सोच लो 🥺";
+
+document.querySelector(".yes").style.fontSize=grow+"px";
+
+}
+
+//////////////// YES CLICK //////////////////
+
+function yesClick(){
+
+document.body.classList.add("shake");
+setTimeout(()=>document.body.classList.remove("shake"),500);
+
+document.getElementById("qText").innerHTML="";   // ✅ ADD THIS
+document.getElementById("btns").innerHTML="";
+
+const music=document.getElementById("music");
+
+
+music.volume=0;
+music.play();
+
+let v=0;
+
+const fade=setInterval(()=>{
+
+if(v<1){
+
+v+=0.05;
+music.volume=v;
+
+}else{
+
+clearInterval(fade);
+
+}
+
+},200);
+
+celebration();
+
+}
+
+//////////////// CELEBRATION //////////////////
+
+function celebration(){
+
+const fire=setInterval(()=>{
+
+const x=Math.random()*window.innerWidth;
+const y=Math.random()*window.innerHeight;
+
+for(let k=0;k<20;k++){
+
+const f=document.createElement("div");
+f.className="fire";
+f.style.left=x+"px";
+f.style.top=y+"px";
+f.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+
+document.body.appendChild(f);
+
+setTimeout(()=>f.remove(),1000);
+
+}
+
+},700);
+
+setTimeout(()=>clearInterval(fire),12000);
+
+for(let k=0;k<200;k++){
+
+const c=document.createElement("div");
+
+c.className="conf";
+c.style.left=Math.random()*100+"vw";
+c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),3000);
+
+}
+
+setTimeout(showLove,5000);
+
+setTimeout(showLetter,9000);
+
+}
+
+//////////////// LOVE TEXT //////////////////
+
+function showLove(){
+
+const d=document.createElement("div");
+
+d.className="big";
+
+d.innerHTML="KASHIS ❤️<br>I LOVE YOU 💍";
+
+document.body.appendChild(d);
+
+}
+
+//////////////// LETTER //////////////////
+
+function showLetter(){
+
+const box=document.createElement("div");
+
+box.style.fontSize="28px";
+box.style.fontWeight="600";
+box.style.fontFamily="Poppins, sans-serif";
+box.style.letterSpacing="1px";
+box.style.textShadow="0 0 8px rgba(0,0,0,0.5)";
+
+
+document.body.appendChild(box);
+
+const text=
+"Kashis, तुम मेरी ज़िंदगी का सबसे सुंदर और अनमोल हिस्सा हो। 💖\n\
+जब से तुम मेरे जीवन में आई हो, हर दिन और भी खास हो गया है।\n\
+तुम्हारी मुस्कान मेरे दिल को सुकून देती है और मेरी दुनिया को रोशन कर देती है।\n\
+मैं हर पल तुम्हारे साथ अपना भविष्य देखता हूँ और हमेशा तुम्हारा साथ निभाना चाहता हूँ।\n\
+मैं जीवन भर तुमसे सच्चा और अटूट प्रेम करता रहूँगा। ❤️";
+
+
+
+let x=0;
+
+function type(){
+
+if(x<text.length){
+
+box.innerHTML+=text[x];
+
+x++;
+
+setTimeout(type,40);
+
+}
+
+}
+
+type();
+
+}
+
+//////////////// BACKGROUND EFFECTS //////////////////
+
+// stars
+
+for(let s=0;s<150;s++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(star);
+
+}
+
+// meteors
+
+setInterval(()=>{
+
+const m=document.createElement("div");
+
+m.className="meteor";
+
+m.style.left=Math.random()*window.innerWidth+"px";
+
+document.body.appendChild(m);
+
+setTimeout(()=>m.remove(),1000);
+
+},2000);
+
+// hearts
+
+setInterval(()=>{
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="💖";
+
+h.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),5000);
+
+},800);
+
 </script>
 
 </body>
